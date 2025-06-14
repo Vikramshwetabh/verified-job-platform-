@@ -26,7 +26,7 @@ func main() {
 	// Log to the terminal that the server is live
 	fmt.Println("Server running on http://localhost:8080")
 
-	// Replace with your PostgreSQL details
+	// my PostgreSQL details
 	connStr := "host=localhost port=5432 user=postgres password=Vikram@32 dbname=verified_jobs sslmode=disable"
 
 	db, err := sql.Open("postgres", connStr)
