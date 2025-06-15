@@ -27,6 +27,9 @@ const connStr = "host=localhost port=5432 user=postgres password=Vikram@32 dbnam
 func main() {
 	var err error                           // <-- declare only err here now
 	db, err = sql.Open("postgres", connStr) // global db is assigned
+	if err != nil {
+		log.Fatal("Failed to connect to database:", err)
+	}
 
 	// Create a new router instance using Gorilla Mux
 	router := mux.NewRouter()
