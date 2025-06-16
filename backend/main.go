@@ -15,7 +15,7 @@ import (
 var db *sql.DB
 
 // PostgreSQL connection string
-const connStr = "host=localhost port=5432 user=postgres password=Vikram@32 dbname=verified_jobs sslmode=disable"
+var connStr = "host=127.0.0.1 port=5432 user=postgres password=Vikram@32 dbname=verified_jobs sslmode=disable"
 
 // User struct representing registration data
 type User struct {
