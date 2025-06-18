@@ -3,8 +3,8 @@ POST http://localhost:8080/register
 Content-Type: application/json
 
 {
-  "name": "Shwetabh",
-  "email": "vikramshwetabh2@gmail.com",
+  "name": "Shwetabh vikram",
+  "email": "vikramshwetabh22@gmail.com",
   "password": "123456",
   "role": "job_seeker"
 }

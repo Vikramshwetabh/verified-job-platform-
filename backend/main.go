@@ -81,7 +81,8 @@ func main() {
 	router := mux.NewRouter()
 
 	// Register route for /register using POST method
-	router.HandleFunc("/register", RegisterUser).Methods("POST")
+	router.HandleFunc("/register", RegisterUser).Methods("POST") // RegisterUser function defined above
+	router.HandleFunc("/login", LoginHandler).Methods("POST")    // Assuming LoginHandler is defined in login.go
 
 	// Start the HTTP server on port 8080
 	fmt.Println("Server running at http://localhost:8080")
