@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login - Verified Job Platform</title>
+</head>
+
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="email" name="email" placeholder="Email" required /><br />
+        <input type="password" name="password" placeholder="Password" required /><br />
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="loginMsg"></p>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        const msg = document.getElementById("loginMsg");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = {
+                email: form.email.value,
+                password: form.password.value
+            };
+
+            const res = await fetch("http://localhost:8080/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const text = await res.text();
+            msg.innerText = text;
+        });
+    </script>
+</body>
+
+</html>

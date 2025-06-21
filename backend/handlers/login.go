@@ -21,8 +21,6 @@ type User struct {
 	Role     string `json:"role"`
 }
 
-// ---------- Handlers ----------
-
 // RegisterHandler handles user registration
 func RegisterHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

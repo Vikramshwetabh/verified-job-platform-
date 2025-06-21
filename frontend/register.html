@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Register - Verified Job Platform</title>
+</head>
+
+<body>
+    <h2>User Registration</h2>
+    <form id="registerForm">
+        <input type="text" name="name" placeholder="Name" required /><br />
+        <input type="email" name="email" placeholder="Email" required /><br />
+        <input type="password" name="password" placeholder="Password" required /><br />
+        <select name="role" required>
+            <option value="">Select Role</option>
+            <option value="job_seeker">Job Seeker</option>
+            <option value="recruiter">Recruiter</option>
+        </select><br />
+        <button type="submit">Register</button>
+    </form>
+
+    <p id="registerMsg"></p>
+
+    <script>
+        const form = document.getElementById("registerForm");
+        const msg = document.getElementById("registerMsg");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = {
+                name: form.name.value,
+                email: form.email.value,
+                password: form.password.value,
+                role: form.role.value
+            };
+
+            const res = await fetch("http://localhost:8080/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const text = await res.text();
+            msg.innerText = text;
+        });
+    </script>
+</body>
+
+</html>
