@@ -1,8 +1,7 @@
-### Test Login API
-POST http://localhost:8080/login
+POST http://localhost:8080/jobs/1/apply
 Content-Type: application/json
 
 {
-  "email": "alice@example.com",
-  "password": "123456"
+  "user_email": "alice@example.com",
+  "resume": "resume-alice.pdf"
 }

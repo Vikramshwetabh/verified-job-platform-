@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Vikramshwetabh/verified-job-platform/handlers"
+	"./handlers"
 	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -33,6 +33,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to create users table:", err)
 	}
+
 	// Create jobs table
 	_, err = db.Exec(`
 	CREATE TABLE IF NOT EXISTS jobs (
@@ -42,8 +43,7 @@ func main() {
 		company TEXT,
 		location TEXT,
 		recruiter_email TEXT NOT NULL
-	)
-`)
+	)`)
 	if err != nil {
 		log.Fatal("Failed to create jobs table:", err)
 	}
@@ -57,21 +57,27 @@ func main() {
 		status TEXT DEFAULT 'pending',
 		resume TEXT,
 		FOREIGN KEY (job_id) REFERENCES jobs(id)
-	)
-`)
+	)`)
 	if err != nil {
 		log.Fatal("Failed to create applications table:", err)
 	}
 
-	fmt.Println("Connected to SQLite and users table ready.")
+	fmt.Println("Connected to SQLite and tables are ready.")
 
+	// Setup router and endpoints
 	router := mux.NewRouter()
+
+	// Pass DB to handlers
+	handlers.SetDB(db)
+
+	// Auth Routes
 	router.HandleFunc("/register", handlers.RegisterHandler(db)).Methods("POST")
 	router.HandleFunc("/login", handlers.LoginHandler(db)).Methods("POST")
+
+	// Job Routes
+	router.HandleFunc("/jobs", handlers.GetJobs).Methods("GET")
+	router.HandleFunc("/jobs/{id}/apply", handlers.ApplyToJob(db)).Methods("POST")
 
 	fmt.Println("Server running at http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
-
-// This code initializes a simple HTTP server with user registration and login functionality using SQLite.
-// It creates a users table if it doesn't exist and sets up routes for registration and login.
