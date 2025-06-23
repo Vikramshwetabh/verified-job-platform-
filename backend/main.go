@@ -33,6 +33,35 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to create users table:", err)
 	}
+	// Create jobs table
+	_, err = db.Exec(`
+	CREATE TABLE IF NOT EXISTS jobs (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		title TEXT NOT NULL,
+		description TEXT,
+		company TEXT,
+		location TEXT,
+		recruiter_email TEXT NOT NULL
+	)
+`)
+	if err != nil {
+		log.Fatal("Failed to create jobs table:", err)
+	}
+
+	// Create applications table
+	_, err = db.Exec(`
+	CREATE TABLE IF NOT EXISTS applications (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		user_email TEXT NOT NULL,
+		job_id INTEGER NOT NULL,
+		status TEXT DEFAULT 'pending',
+		resume TEXT,
+		FOREIGN KEY (job_id) REFERENCES jobs(id)
+	)
+`)
+	if err != nil {
+		log.Fatal("Failed to create applications table:", err)
+	}
 
 	fmt.Println("Connected to SQLite and users table ready.")
 
