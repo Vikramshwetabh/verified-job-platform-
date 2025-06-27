@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Verified Job Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-blue-700">Verified Job Platform</h1>
+        <span id="userRole" class="text-sm text-gray-600"></span>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="p-6" id="dashboardContent">
+        <!-- Will be filled by JS based on user role -->
+    </div>
+
+    <script>
+        // Simulate role from session/localStorage
+        const role = localStorage.getItem("userRole") || "job_seeker"; // change to recruiter/admin to test
+        document.getElementById("userRole").textContent = "Role: " + role;
+
+        const dashboard = document.getElementById("dashboardContent");
+
+        if (role === "job_seeker") {
+            dashboard.innerHTML = `
+        <h2 class="text-2xl font-semibold mb-4">Available Jobs</h2>
+        <div class="space-y-4">
+          <div class="p-4 bg-white shadow rounded">
+            <h3 class="text-lg font-bold">Frontend Developer</h3>
+            <p class="text-sm text-gray-600">Company: ABC Tech</p>
+            <p class="text-sm text-gray-600">Location: Remote</p>
+            <button class="mt-2 px-4 py-1 bg-blue-600 text-white rounded">Apply</button>
+          </div>
+        </div>
+      `;
+        } else if (role === "recruiter") {
+            dashboard.innerHTML = `
+        <h2 class="text-2xl font-semibold mb-4">Manage Your Job Posts</h2>
+        <button class="mb-4 px-4 py-2 bg-green-600 text-white rounded">+ Post New Job</button>
+        <div class="space-y-4">
+          <div class="p-4 bg-white shadow rounded">
+            <h3 class="text-lg font-bold">Backend Engineer</h3>
+            <p class="text-sm text-gray-600">Applicants: 5</p>
+            <button class="mt-2 px-4 py-1 bg-indigo-600 text-white rounded">View Applicants</button>
+          </div>
+        </div>
+      `;
+        } else if (role === "admin") {
+            dashboard.innerHTML = `
+        <h2 class="text-2xl font-semibold mb-4">Admin Panel</h2>
+        <p>Manage platform activity and users.</p>
+      `;
+        }
+    </script>
+</body>
+
+</html>
