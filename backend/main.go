@@ -6,12 +6,13 @@ import (
 	"log"
 	"net/http"
 
-	"./handlers"
+	"github.com/Vikramshwetabh/verified-job-platform/handlers"
+
 	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var db *sql.DB
+var db *sql.DB // Global database connection
 
 func main() {
 	var err error
